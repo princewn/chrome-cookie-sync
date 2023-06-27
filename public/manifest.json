@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "cookie同步",
+  "version": "1.0.0",
+  "description": "跨域同步cookie,模拟登录状态",
+  "icons": {
+    "16": "sources/cookie48.png",
+    "48": "sources/cookie48.png",
+    "128": "sources/cookie128.png"
+  },
+  "action": {
+    "default_icon": "sources/cookie128.png",
+    "default_title": "解决Chrome浏览器Cookie跨域携带问题",
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "cookies", "tabs", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "chrome_url_overrides": {}
+}
