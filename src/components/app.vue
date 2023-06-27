@@ -1,11 +1,14 @@
 <template>
   <div>
+    <p>输入源站点和目标站点以及 cookie 名称，可以自动获取和监听 cookie 的变化并实时更新。</p>
+    <p>点击开启轮询，可以定时刷新相应任务的源网站并实时更新cookie 的变化（如果有）。源站点刷新频率默认60秒/次，轮询默认关闭。</p>
+    <p>点击开启或禁用，可以开启或禁用监听相应任务的 cookie 的变化。默认开启。</p>
     <div v-show="domainList.length" class="config-table">
       <el-table :data="domainList" stripe style="width: 100%">
-        <el-table-column prop="from" label="from" width="180" />
-        <el-table-column prop="name" label="name" width="180" />
-        <el-table-column prop="to" label="to" />
-        <el-table-column prop="gap" label="轮询间隔（秒）"></el-table-column>
+        <el-table-column prop="from" label="源站点" width="180" />
+        <el-table-column prop="name" label="cookie名称" width="180" />
+        <el-table-column prop="to" label="目标站点" />
+        <el-table-column prop="gap" label="源站点刷新频率（秒/次）"></el-table-column>
         <el-table-column label="操作"  width="180">
           <template #default="{ row }">
             <a class="btn" @click="deleteList(row)">
@@ -39,7 +42,7 @@
         <el-autocomplete
           v-model="nextConfigItem.from"
           :fetch-suggestions="querySearch"
-          placeholder="输入目标站点"
+          placeholder="输入源站点"
           @select="handleSelect(formRef)"
         />
       </el-form-item>
@@ -49,7 +52,7 @@
       <el-form-item label="同步到" prop="to">
         <el-input v-model="nextConfigItem.to"></el-input>
       </el-form-item>
-      <el-form-item label="检测到目标cookie变化或者刷新源网站的秒数" prop="gap">
+      <el-form-item label="源站点刷新频率（秒/次）" prop="gap">
         <el-input v-model="nextConfigItem.gap"></el-input>
       </el-form-item>
     </el-form>
@@ -254,6 +257,9 @@ function setCookie(cookie, config) {
 </script>
 
 <style lang="less" scoped>
+p {
+  color: rgb(144, 147, 153, 0.95);
+}
 .submit-content {
   text-align: center;
   padding-bottom: 12px;
